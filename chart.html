@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title> TEST </title>
+        
+        <script type="text/javascript">
+            function Upload() {
+                var fileUpload = document.getElementById("fileUpload");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            data = e.target.result.split('\n')
+                            for(i in data){
+                                data[i] = data[i].split(',')
+                            }
+                            console.log(data)
+                        }
+                        reader.readAsText(fileUpload.files[0]);
+                    } else {
+                        alert("This browser does not support HTML5.");
+                    }
+                } else {
+                    alert("Please upload a valid CSV file.");
+                }
+            }
+    </script>
+    </head>
+    
+    <body>
+
+    </body>
+</html>
+
+<input type="file" id="fileUpload" />
+<input type="button" id="upload" value="Upload" onclick="Upload()" />
+<hr />
+<div id="dvCSV">
+</div>
